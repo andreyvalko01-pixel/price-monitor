@@ -1,0 +1,2 @@
+# щодня о 08:00 за Києвом (сервер у UTC)
+0 6 * * * cd /opt/price-monitor && .venv/bin/python -m price_monitor --config config.toml >> logs/cron.log 2>&1

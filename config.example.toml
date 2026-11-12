@@ -1,0 +1,67 @@
+# Налаштування моніторингу. Скопіюйте у config.toml і заповніть.
+
+[general]
+database = "data/prices.sqlite"
+report_dir = "reports"
+# мінімальна зміна ціни у відсотках, яку вважаємо вартою уваги
+change_threshold = 1.0
+
+[http]
+timeout = 20
+retries = 3
+# пауза між запитами до одного домену, секунди
+delay = 1.5
+# проксі по черзі; залиште порожнім, щоб ходити напряму
+proxies = []
+# proxies = ["http://user:pass@1.2.3.4:8000", "http://user:pass@5.6.7.8:8000"]
+
+[telegram]
+enabled = false
+token = ""
+chat_id = ""
+
+[google_sheets]
+enabled = false
+credentials = "service-account.json"
+spreadsheet = "Моніторинг цін"
+
+# ---------- магазини ----------
+# render = "browser" — сторінка домальовується JavaScript, відкриваємо через Playwright
+
+[[stores]]
+name = "TechnoPark"
+url = "http://127.0.0.1:8765/technopark/catalog.html"
+render = "http"
+item = ".product"
+title = ".product__name"
+price = ".product__price"
+link = "a"
+
+[[stores]]
+name = "Elmart"
+url = "http://127.0.0.1:8765/elmart/list.html"
+render = "http"
+item = "li.item"
+title = "h3"
+price = "[data-price]"
+price_attr = "data-price"
+link = "a"
+
+[[stores]]
+name = "GadgetHub"
+url = "http://127.0.0.1:8765/gadgethub/index.html"
+render = "browser"
+wait_for = ".card"
+item = ".card"
+title = ".card-title"
+price = ".card-price"
+link = "a"
+
+[[stores]]
+name = "Smartik"
+url = "http://127.0.0.1:8765/smartik/products.html"
+render = "http"
+item = "tr.row"
+title = "td.name"
+price = "td.cost"
+link = "a"
